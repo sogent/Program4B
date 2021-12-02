@@ -3,6 +3,8 @@
 //
 
 #include "Book.h"
+#include <iomanip>
+#include <vector>
 
 //default constructor
 Book::Book(){
@@ -43,3 +45,12 @@ void Book::printMedia(ostream &o){
     o <<"Book: "<<title<< ": "<< author <<": "<<endl;
 }
 
+void Book::printBookAll(){
+
+        cout<<"hi"<<endl;
+        cout << title << setw(2) << left;
+        cout << yearReleased << setw(7) << right;
+        cout << rating;
+
+
+}

@@ -27,5 +27,13 @@ void printSongList(vector<Media*> &myMediaLibrary);
 
 void printList(vector<Media*> &myMediaLibrary);
 
+void printTotals(vector<Media*> &myMediaLibrary);
+
+void listMovieStars(vector<Media*> &myMediaLibrary);
+
+void findMovie(vector<Media*> &myMediaLibrary);
+
+
+
 
 #endif //PROGRAM4B_MEDIALIBRARY_H

@@ -40,7 +40,7 @@ public:
 
     virtual void printMedia(ostream &o);
 
-    virtual void printMediaAll();
+   virtual void printMediaAll();
 
 };
 

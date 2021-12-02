@@ -36,7 +36,9 @@ public:
 
     virtual void printMedia(ostream &o);
 
-    void printBook();
+    void printBookAll();
+
+
 
 
 };

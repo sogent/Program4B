@@ -14,7 +14,8 @@ class Movie: public Media {
 private:
     string director;
     int duration;
-    vector<string>stars;
+    //vector<string>stars;
+
 
 public:
     //default constructor
@@ -29,11 +30,13 @@ public:
     //setters
     void setMovieDirector(string movieDirector);
     void setMovieDuration(int movieDuration);
-    void setMovieStars(vector<string> movieStars);
+    void setMovieStars(vector<string> &movieStars);
 
     //getters
     string getMovieDirector();
     int getMovieDuration();
+    void getMovieStars();
+    vector<string>stars;
 
     virtual void printMedia(ostream &o);
 };

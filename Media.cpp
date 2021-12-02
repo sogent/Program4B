@@ -71,7 +71,6 @@ void Media::printMediaAll() {
     cout<< title<<setw(2)<<left;
     cout <<yearReleased<<setw(7)<<right;
     cout << rating;
-    cout<<endl;
 
 }
 

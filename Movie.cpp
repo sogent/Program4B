@@ -34,7 +34,7 @@ void Movie::setMovieDirector(string movieDirector){
 void Movie::setMovieDuration(int movieDuration){
     duration=movieDuration;
 }
-void Movie::setMovieStars(vector<string> movieStars){
+void Movie::setMovieStars(vector<string> &movieStars){
     stars=movieStars;
 }
 
@@ -45,6 +45,13 @@ string Movie::getMovieDirector(){
 int Movie::getMovieDuration(){
     return duration;
 }
+
+void Movie::getMovieStars(){
+    for(int i=0;i<stars.size();++i){
+        cout<<stars.at(i)<<endl;
+    }
+}
+
 
 void Movie::printMedia(ostream &o){
     o <<"Movie: "<<title<<endl;
