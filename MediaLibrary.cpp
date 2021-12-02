@@ -142,7 +142,8 @@ void readData(istream &inFile, ostream &outFile, vector<Media*> &mediaLibrary) {
                 //if(myMediaLibrary[i]->getMediaTitle()==userInput) {
                 if(mediaLibrary[i]->getMediaType()=='M'){
 
-                   // cout << dynamic_cast<Movie*>(mediaLibrary.at(i))->getMovieStars().at(0) << endl;
+                    dynamic_cast<Movie*>(mediaLibrary.at(i))->getMovieStars();
+
 
                 }
             }
@@ -153,6 +154,8 @@ void readData(istream &inFile, ostream &outFile, vector<Media*> &mediaLibrary) {
             mediaCount[0]++;
             mediaCount[3]++;
         }
+
+
 
 
 
@@ -319,6 +322,7 @@ void listMovieStars(vector<Media*> &myMediaLibrary){
         cout << "}" << endl;
         cout << setfill(' ');
 
+
         for (int i = 0; i < myMediaLibrary.size(); ++i) {
             if (myMediaLibrary[i]->getMediaTitle() == userInput) {
                 if (myMediaLibrary[i]->getMediaType() == 'M') {
@@ -327,6 +331,9 @@ void listMovieStars(vector<Media*> &myMediaLibrary){
                 }
             }
         }
+
+
+
 
         cout << "{";
         cout << setfill('=') << setw(50);
@@ -352,14 +359,24 @@ void findMovie(vector<Media*> &myMediaLibrary){
 
         int matchCount=0;
         int movieListCount=0;
+        int found;
         for(int i=0;i<myMediaLibrary.size();++i){
             if(myMediaLibrary[i]->getMediaType()=='M'){
                 movieListCount+=1;
-                int found=userInput.find(dynamic_cast<Movie*>(myMediaLibrary.at(i))->stars.at(0));
+                //cout<<movieListCount;
+                for(int j=0;j<dynamic_cast<Movie*>(myMediaLibrary.at(i))->stars.size();++j) {
+                    found = userInput.find(dynamic_cast<Movie *>(myMediaLibrary.at(i))->stars.at(j));
 
-                if(found==-1){
-                    matchCount+=1;
+
+                    //cout << dynamic_cast<Movie *>(myMediaLibrary.at(i))->stars.at(j) << endl;
                 }
+
+
+                    if (found == -1) {
+                        matchCount += 1;
+                    }
+                    //cout<<matchCount;
+
 
                 //if the string is not found, then it will return a -1
                 //since each movie is being traversed, it will
@@ -368,7 +385,7 @@ void findMovie(vector<Media*> &myMediaLibrary){
             }
         }
 
-        if(matchCount>=movieListCount){
+        if(matchCount>movieListCount){
             throw runtime_error("is not found in any movies in your movie library");
         }
 
@@ -382,9 +399,13 @@ void findMovie(vector<Media*> &myMediaLibrary){
 
         for(int i=0;i<myMediaLibrary.size();++i){
             if(myMediaLibrary[i]->getMediaType()=='M'){
-                if(userInput == dynamic_cast<Movie*>(myMediaLibrary.at(i))->stars.at(0)){
-                    //cout<<dynamic_cast<Movie*>(myMediaLibrary.at(i))->getMediaTitle()<<endl;
-                    cout<<myMediaLibrary.at(i)->getMediaTitle()<<endl;
+                for(int j=0;j<dynamic_cast<Movie*>(myMediaLibrary.at(i))->stars.size();++j){
+                if(userInput == dynamic_cast<Movie*>(myMediaLibrary.at(i))->stars.at(j)) {
+
+                    cout << myMediaLibrary.at(i)->getMediaTitle() << endl;
+
+
+                }
 
                 }
             }
