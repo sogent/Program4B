@@ -1,7 +1,3 @@
-//
-// Created by Sarah Ogent on 11/21/21.
-//
-
 #include "Media.h"
 #include <iostream>
 #include <iomanip>
@@ -14,7 +10,6 @@ Media::Media(){
     rating=0;
     genre=" ";
     yearReleased=0;
-
 }
 
 //constructor
@@ -27,7 +22,7 @@ Media::Media(char mediaType, string mediaTitle, int mediaRating, string mediaGen
 }
 
 
-//setters
+//SETTERS
 void Media::setMediaType(char mediaType){
     type=mediaType;
 }
@@ -45,7 +40,7 @@ void Media::setMediaYearReleased(int mediaYearReleased){
 }
 
 
-//getters
+//GETTERS
 char Media::getMediaType(){
     return type;
 }
@@ -62,15 +57,9 @@ int Media::getMediaYearReleased(){
     return yearReleased;
 }
 
-void Media::printMedia(ostream &o) {
-    o << "Media: "<<endl;
-}
-
 void Media::printMediaAll() {
-
     cout<< title<<setw(2)<<left;
     cout <<yearReleased<<setw(7)<<right;
     cout << rating;
-
 }
 

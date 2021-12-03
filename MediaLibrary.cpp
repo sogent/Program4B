@@ -1,8 +1,3 @@
-//
-// Created by Sarah Ogent on 11/21/21.
-//
-
-
 #include "MediaLibrary.h"
 #include <string>
 #include <fstream>

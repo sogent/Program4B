@@ -79,7 +79,6 @@ public:
     void getMovieStars();
 
 
-    virtual void printMedia(ostream &o);
 };
 
 

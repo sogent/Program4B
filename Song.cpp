@@ -19,7 +19,7 @@ Song::Song(char mediaType, string mediaTitle,int mediaRating, string mediaGenre,
     duration=songDuration;
 }
 
-//setters
+//SETTERS
 void Song::setSongArtist(string songArtist){
     artist=songArtist;
 }
@@ -27,14 +27,10 @@ void Song::setSongDuration(int songDuration){
     duration=songDuration;
 }
 
-//getters
+//GETTERS
 string Song::getSongArtist(){
     return artist;
 }
 int Song::getSongDuration(){
     return duration;
-}
-
-void Song::printMedia(ostream &o) {
-    o<< "Song: "<<title<<endl;
 }

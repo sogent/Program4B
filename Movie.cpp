@@ -1,7 +1,3 @@
-//
-// Created by Sarah Ogent on 11/21/21.
-//
-
 #include "Movie.h"
 using namespace std;
 #include <iostream>
@@ -24,10 +20,9 @@ Movie::Movie(char mediaType, string mediaTitle, int mediaRating, string mediaGen
     director=movieDirector;
     duration=movieDuration;
     stars=movieStars;
-
 }
 
-//setters
+//SETTERS
 void Movie::setMovieDirector(string movieDirector){
     director=movieDirector;
 }
@@ -38,7 +33,7 @@ void Movie::setMovieStars(vector<string> &movieStars){
     stars=movieStars;
 }
 
-//getters
+//GETTERS
 string Movie::getMovieDirector(){
     return director;
 }
@@ -52,7 +47,3 @@ void Movie::getMovieStars(){
     }
 }
 
-
-void Movie::printMedia(ostream &o){
-    o <<"Movie: "<<title<<endl;
-}
