@@ -33,6 +33,8 @@ void listMovieStars(vector<Media*> &myMediaLibrary);
 
 void findMovie(vector<Media*> &myMediaLibrary);
 
+string remove_spaces(const string& s);
+
 
 
 
