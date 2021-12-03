@@ -1,7 +1,3 @@
-//
-// Created by Sarah Ogent on 11/21/21.
-//
-
 #ifndef PROGRAM4B_MOVIE_H
 #define PROGRAM4B_MOVIE_H
 

@@ -1,7 +1,3 @@
-//
-// Created by Sarah Ogent on 11/21/21.
-//
-
 #include "Song.h"
 using namespace std;
 //default constructor
