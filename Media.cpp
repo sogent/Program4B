@@ -47,7 +47,7 @@ char Media::getMediaType(){
 string Media::getMediaTitle(){
     return title;
 }
-int Media::getMediaMediaRating(){
+int Media::getMediaRating(){
     return rating;
 }
 string Media::getMediaGenre() {

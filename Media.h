@@ -85,7 +85,7 @@ public:
 * Post-condition:
 * value of data member 'rating' is retrieved
 */
-    int getMediaMediaRating();
+    int getMediaRating();
 
     /*
 * Pre-condition:

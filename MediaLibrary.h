@@ -92,7 +92,49 @@ void findMovie(vector<Media*> &myMediaLibrary);
 ///NOTE:Cited from Peteris on StackOverflow
 string remove_spaces(const string& s);
 
+/*
+* Pre-condition:
+* is a sub-function of printMenuOptions, therefore printMenuOptions must be called first
+* Post-condition:
+* media data from all media classes will be printed according to rating provided by user
+*/
+void printAboveRating(vector<Media*> &myMediaLibrary);
 
+/*
+* Pre-condition:
+* is a sub-function of printMenuOptions, therefore printMenuOptions must be called first
+* Post-condition:
+* media data from 'Book' class will be printed, specifically the author of a book according to title of book provided
+* by user
+*/
+void listBookAuthor(vector<Media*> &myMediaLibrary);
+
+/*
+* Pre-condition:
+* is a sub-function of printMenuOptions, therefore printMenuOptions must be called first
+* Post-condition:
+* media data from all media classes will be printed, specifically the genre of all media types
+*/
+void printGenreList(vector <Media*> &myMediaLibrary);
+
+/*
+* Pre-condition:
+* is a sub-function of printMenuOptions, therefore printMenuOptions must be called first
+* Post-condition:
+* media data from 'Song' class will be printed, specifically all the artists of the entire song library along with their
+* song duration time
+* by user
+*/
+void printSongArtistList(vector<Media*> &myMediaLibrary);
+
+/*
+* Pre-condition:
+* is a sub-function of printMenuOptions, therefore printMenuOptions must be called first
+* Post-condition:
+* media data from 'Song' class will be printed, specifically the song(s) composed by an artist according to title of song
+* provided by user
+*/
+void findSong(vector <Media*> &myMediaLibrary);
 
 
 #endif //PROGRAM4B_MEDIALIBRARY_H

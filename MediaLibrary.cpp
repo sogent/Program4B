@@ -57,7 +57,6 @@ void readData(istream &inFile, ostream &outFile, vector<Media*> &mediaLibrary) {
         }
 
 
-
         //parse data for Book type
         if (testChar == "B") {
             try {
@@ -91,7 +90,6 @@ void readData(istream &inFile, ostream &outFile, vector<Media*> &mediaLibrary) {
             mediaCount[1]++;
             mediaCount[3]++;
         }
-
 
 
         //parse data for Movie type
@@ -138,11 +136,10 @@ void readData(istream &inFile, ostream &outFile, vector<Media*> &mediaLibrary) {
         }
 
 
-
         //parse data for Song type
         if (testChar == "S") {
             try {
-                title = row[1];
+                title = remove_spaces(row[1]);
                 artist=row[2];
                 rating = stoi(row[3]);
                 genre = row[4];
@@ -186,7 +183,7 @@ void printBookList(vector<Media*> &myMediaLibrary){
             cout << setw(6)<<left<<i+1<<setw(43)<<left;
             cout<<myMediaLibrary[i]->getMediaTitle();
             cout<<setw(10)<<left<<myMediaLibrary[i]->getMediaYearReleased();
-            cout<<setw(10)<<left<<myMediaLibrary[i]->getMediaMediaRating();
+            cout<<setw(10)<<left<<myMediaLibrary[i]->getMediaRating();
 
             //cout<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getBookAuthor()<<endl;
             //cout<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getBookPages()<<endl;
@@ -205,10 +202,7 @@ void printMovieList(vector<Media*> &myMediaLibrary){
             cout << setw(6)<<left<<i+1<<setw(43)<<left;
             cout<<myMediaLibrary[i]->getMediaTitle();
             cout<<setw(10)<<left<<myMediaLibrary[i]->getMediaYearReleased();
-            cout<<setw(10)<<left<<myMediaLibrary[i]->getMediaMediaRating();
-
-            //cout<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getBookAuthor()<<endl;
-            //cout<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getBookPages()<<endl;
+            cout<<setw(10)<<left<<myMediaLibrary[i]->getMediaRating();
             cout<<endl;
         }
     }
@@ -224,15 +218,13 @@ void printSongList(vector<Media*> &myMediaLibrary){
             cout << setw(6)<<left<<i+1<<setw(43)<<left;
             cout<<myMediaLibrary[i]->getMediaTitle();
             cout<<setw(10)<<left<<myMediaLibrary[i]->getMediaYearReleased();
-            cout<<setw(10)<<left<<myMediaLibrary[i]->getMediaMediaRating();
-
-            //cout<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getBookAuthor()<<endl;
-            //cout<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getBookPages()<<endl;
+            cout<<setw(10)<<left<<myMediaLibrary[i]->getMediaRating();
             cout<<endl;
         }
     }
     cout<<endl;
 }
+
 
 void printList(vector<Media*> &myMediaLibrary){
     cout<<"#"<<setw(18)<<"TITLE"<<setw(34)<<"YEAR"<<setw(10)<<"RATING"<<endl;
@@ -344,7 +336,6 @@ void findMovie(vector<Media*> &myMediaLibrary){
             throw runtime_error("is not found in any movies in your movie library");
         }
 
-
         cout << endl;
         cout << "{";
         cout << setfill('=') << setw(50);
@@ -375,6 +366,279 @@ void findMovie(vector<Media*> &myMediaLibrary){
     }
 }
 
+
+
+void printAboveRating(vector<Media*> &myMediaLibrary){
+    string userInput;
+    cout<<"Enter media rating threshold: ";
+    try{
+        cin>>userInput;
+
+        if(stoi(userInput)<0||stoi(userInput)>10){
+            throw runtime_error("Invalid input, input must be between 0-10");
+        }
+
+        //books
+        cout<<"\n";
+        cout<<setw(40)<<right<<"BOOKS with a rating at or above "<<userInput<<":"<<endl;
+        cout<<setw(0)<<right<<"TITLE"<<setw(5)<<setw(50)<<"RATING"<<endl;
+        for(int i=0;i<myMediaLibrary.size();++i){
+            if(myMediaLibrary.at(i)->getMediaType()=='B') {
+                if (dynamic_cast<Book*>(myMediaLibrary.at(i))->getMediaRating() >= stoi(userInput)) {
+
+                    cout << setw(49)<<left<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getMediaTitle();
+                    cout<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getMediaRating()<<endl;
+
+                }
+            }
+        }
+        cout<<"\n";
+
+
+        //movies
+        cout<<setw(40)<<right<<"MOVIES with a rating at or above "<<userInput<<":"<<endl;
+        cout<<setw(0)<<right<<"TITLE"<<setw(5)<<setw(50)<<"RATING"<<endl;
+        for(int i=0;i<myMediaLibrary.size();++i){
+            if(myMediaLibrary.at(i)->getMediaType()=='M') {
+                if (dynamic_cast<Movie*>(myMediaLibrary.at(i))->getMediaRating() >= stoi(userInput)) {
+
+                    cout << setw(49)<<left<<dynamic_cast<Movie*>(myMediaLibrary.at(i))->getMediaTitle();
+                    cout<<dynamic_cast<Movie*>(myMediaLibrary.at(i))->getMediaRating()<<endl;
+
+                }
+            }
+        }
+        cout<<"\n";
+
+
+        //songs
+        cout<<setw(40)<<right<<"SONGS with a rating at or above "<<userInput<<":"<<endl;
+        cout<<setw(0)<<right<<"TITLE"<<setw(5)<<setw(50)<<"RATING"<<endl;
+        for(int i=0;i<myMediaLibrary.size();++i){
+            if(myMediaLibrary.at(i)->getMediaType()=='S') {
+                if (dynamic_cast<Song*>(myMediaLibrary.at(i))->getMediaRating() >= stoi(userInput)) {
+
+                    cout << setw(49)<<left<<dynamic_cast<Song*>(myMediaLibrary.at(i))->getMediaTitle();
+                    cout<<dynamic_cast<Song*>(myMediaLibrary.at(i))->getMediaRating()<<endl;
+
+                }
+            }
+        }
+        cout<<"\n";
+
+
+    }catch(runtime_error &inputError){
+       cout<<inputError.what()<<endl;
+        cout<<endl;
+    }catch(invalid_argument &inputError2){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout<<"Invalid input, please try again"<<endl;
+        cout<<"\n";
+
+    }
+}
+
+
+void listBookAuthor(vector<Media*> &myMediaLibrary){
+    string userInput;
+    cout<<"Enter the Book's title: ";
+    try {
+        getline(cin, userInput);
+
+        vector<int> foundIndex;
+        int matchCount=0;
+        int bookListSize=0;
+        for(int i=0;i<myMediaLibrary.size();++i){
+            if(myMediaLibrary[i]->getMediaType()=='B'){
+                bookListSize+=1;
+                int found=userInput.find(myMediaLibrary[i]->getMediaTitle());
+                if(found==-1){
+                    matchCount+=1;
+                }
+                //if the string is not found, then it will return a -1
+                //since each movie is being traversed, it will
+                //output a total equivalent to the number of movies
+
+                foundIndex.push_back(found);
+            }
+        }
+
+        if(matchCount==bookListSize){
+            throw runtime_error("is not found in your book library");
+        }
+
+        cout<<endl;
+        cout << "THE AUTHOR OF THE BOOK \"" << userInput << "\" IS:" << endl;
+        cout << "{";
+        cout << setfill('=') << setw(50);
+        cout << "}" << endl;
+        cout << setfill(' ');
+
+        for (int i = 0; i < myMediaLibrary.size(); ++i) {
+            if (myMediaLibrary[i]->getMediaTitle() == userInput) {
+                if (myMediaLibrary[i]->getMediaType() == 'B') {
+
+                   cout<< dynamic_cast<Book*>(myMediaLibrary.at(i))->getBookAuthor()<<endl;
+                }
+            }
+        }
+
+        cout << "{";
+        cout << setfill('=') << setw(50);
+        cout << "}" << endl;
+        cout << setfill(' ');
+        cout << endl;
+
+    }catch(runtime_error &inputError){
+        cout<<endl;
+        cout<<"Sorry, but the book: \""<<userInput<<"\" "<<inputError.what()<<endl;
+        cout<<endl;
+    }
+}
+
+
+void printGenreList(vector <Media*> &myMediaLibrary){
+    try{
+        //books
+        cout<<"\n";
+        cout<<setw(35)<<right<<"BOOK GENRES:"<<endl;
+        cout<<setw(0)<<right<<"TITLE"<<setw(5)<<setw(49)<<"GENRE"<<endl;
+        for(int i=0;i<myMediaLibrary.size();++i){
+            if(myMediaLibrary.at(i)->getMediaType()=='B') {
+
+                    cout << setw(49)<<left<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getMediaTitle();
+                    cout<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getMediaGenre()<<endl;
+            }
+        }
+        cout<<"\n";
+
+
+        //movies
+        cout<<setw(35)<<right<<"MOVIE GENRES:"<<endl;
+        cout<<setw(0)<<right<<"TITLE"<<setw(5)<<setw(49)<<"GENRE"<<endl;
+        for(int i=0;i<myMediaLibrary.size();++i){
+            if(myMediaLibrary.at(i)->getMediaType()=='M') {
+
+                    cout << setw(49)<<left<<dynamic_cast<Movie*>(myMediaLibrary.at(i))->getMediaTitle();
+                    cout<<dynamic_cast<Movie*>(myMediaLibrary.at(i))->getMediaGenre()<<endl;
+            }
+        }
+        cout<<"\n";
+
+
+        //songs
+        cout<<setw(35)<<right<<"SONG GENRES:"<<endl;
+        cout<<setw(0)<<right<<"TITLE"<<setw(5)<<setw(49)<<"GENRE"<<endl;
+        for(int i=0;i<myMediaLibrary.size();++i){
+            if(myMediaLibrary.at(i)->getMediaType()=='S') {
+
+                    cout << setw(49)<<left<<dynamic_cast<Song*>(myMediaLibrary.at(i))->getMediaTitle();
+                    cout<<dynamic_cast<Song*>(myMediaLibrary.at(i))->getMediaGenre()<<endl;
+            }
+        }
+        cout<<"\n";
+
+
+    }catch(runtime_error &inputError){
+        cout<<inputError.what()<<endl;
+        cout<<endl;
+    }catch(invalid_argument &inputError2){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout<<"Invalid input, please try again"<<endl;
+        cout<<"\n";
+
+    }
+}
+
+void printSongArtistList(vector<Media*> &myMediaLibrary){
+    try{
+
+        //songs
+        cout<<setw(55)<<right<<"SONG, ARTIST AND DURATION:"<<endl;
+        cout<<setw(0)<<right<<"TITLE"<<setw(5)<<setw(49)<<"ARTIST"<<setw(42)<<"DURATION"<<endl;
+        for(int i=0;i<myMediaLibrary.size();++i){
+            if(myMediaLibrary.at(i)->getMediaType()=='S') {
+
+                cout << setw(48)<<left<<dynamic_cast<Song*>(myMediaLibrary.at(i))->getMediaTitle();
+                cout<<setw(40)<<left<<dynamic_cast<Song*>(myMediaLibrary.at(i))->getSongArtist();
+                cout<<dynamic_cast<Song*>(myMediaLibrary.at(i))->getSongDuration()<<endl;
+
+            }
+
+        }
+        cout<<"\n";
+
+
+    }catch(runtime_error &inputError){
+        cout<<inputError.what()<<endl;
+        cout<<endl;
+    }catch(invalid_argument &inputError2){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout<<"Invalid input, please try again"<<endl;
+        cout<<"\n";
+
+    }
+}
+
+void findSong(vector <Media*> &myMediaLibrary){
+    string userInput;
+    cout<<"Enter the Artist's name: ";
+    try{
+        getline(cin, userInput);
+
+        int matchCount=0;
+        int songListCount=0;
+        int found;
+        for(int i=0;i<myMediaLibrary.size();++i){
+            if(myMediaLibrary[i]->getMediaType()=='S'){
+                songListCount+=1;
+
+                found = userInput.find(dynamic_cast<Song*>(myMediaLibrary.at(i))->getSongArtist());
+
+
+                if (found == -1) {
+                    matchCount += 1;
+                }
+                //if the string is not found, then it will return a -1
+                //since each movie is being traversed, it will
+                //output a total equivalent to the number of movies
+            }
+        }
+
+        if(matchCount>=songListCount){
+            throw runtime_error("is not found for any songs in your song library");
+        }
+
+        cout << endl;
+        cout << "{";
+        cout << setfill('=') << setw(50);
+        cout << "}" << endl;
+        cout << setfill(' ');
+        cout << userInput << " is the artist for the following song(s):" << endl;
+
+        for(int i=0;i<myMediaLibrary.size();++i){
+            if(myMediaLibrary[i]->getMediaType()=='S'){
+                    if (userInput == dynamic_cast<Song*>(myMediaLibrary.at(i))->getSongArtist()) {
+
+                        cout << myMediaLibrary.at(i)->getMediaTitle() << endl;
+                    }
+            }
+        }
+
+        cout << "{";
+        cout << setfill('=') << setw(50);
+        cout << "}" << endl;
+        cout << setfill(' ');
+        cout << endl;
+
+    }catch(runtime_error &inputError){
+        cout<<"Sorry, but the artist: \""<<userInput<<"\" "<<inputError.what()<<endl;
+        cout<<endl;
+    }
+}
 
 
 void printMenuOptions() {
@@ -411,6 +675,11 @@ void printMenuOptions() {
             cout << "A - Print All Media" << endl;
             cout << "F - Find the Movie the Star is in" << endl;
             cout << "G - Print Stars for a Given Movie" << endl;
+            cout << "P - Print Author for a Given Book" << endl;
+            cout << "O - Print Media Genre List" <<endl;
+            cout << "J - Print Song Artist List" <<endl;
+            cout << "K - List Songs for a Given Artist" <<endl;
+            cout << "R - Print Media Above Rating" << endl;
             cout << "T - Print Media Counts" << endl;
             cout << "Q - Quit" << endl;
             cout << endl;
@@ -450,15 +719,35 @@ void printMenuOptions() {
                 listMovieStars(myMediaLibrary);
 
             } else if(userInput=='T') {
-                //print counts of different media and media total
+                //print counts of different media and overall media total
                 printTotals(myMediaLibrary);
 
             }else if (userInput == 'Q') {
                 run = false;
 
+            }else if (userInput == 'R'){
+                //print media above rating
+                printAboveRating(myMediaLibrary);
+
+            } else if(userInput == 'P') {
+                //print author for given book
+                listBookAuthor(myMediaLibrary);
+
+            } else if(userInput == 'O') {
+                //print media and genre list
+                printGenreList(myMediaLibrary);
+
+            } else if(userInput == 'J') {
+                //print song artist list
+                printSongArtistList(myMediaLibrary);
+
+            } else if(userInput == 'K') {
+                //print song(s) for a given artist
+                findSong(myMediaLibrary);
+
             } else {
-                throw runtime_error("Invalid input, please try again");
-            }
+                    throw runtime_error("Invalid input, please try again");
+                }
 
 
         } catch (runtime_error &inputError) {
