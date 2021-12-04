@@ -184,9 +184,6 @@ void printBookList(vector<Media*> &myMediaLibrary){
             cout<<myMediaLibrary[i]->getMediaTitle();
             cout<<setw(10)<<left<<myMediaLibrary[i]->getMediaYearReleased();
             cout<<setw(10)<<left<<myMediaLibrary[i]->getMediaRating();
-
-            //cout<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getBookAuthor()<<endl;
-            //cout<<dynamic_cast<Book*>(myMediaLibrary.at(i))->getBookPages()<<endl;
             cout<<endl;
         }
     }
@@ -432,7 +429,7 @@ void printAboveRating(vector<Media*> &myMediaLibrary){
         cout<<endl;
     }catch(invalid_argument &inputError2){
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        //cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout<<"Invalid input, please try again"<<endl;
         cout<<"\n";
 
@@ -545,7 +542,7 @@ void printGenreList(vector <Media*> &myMediaLibrary){
         cout<<endl;
     }catch(invalid_argument &inputError2){
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        //cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout<<"Invalid input, please try again"<<endl;
         cout<<"\n";
 
@@ -576,7 +573,7 @@ void printSongArtistList(vector<Media*> &myMediaLibrary){
         cout<<endl;
     }catch(invalid_argument &inputError2){
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        //cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout<<"Invalid input, please try again"<<endl;
         cout<<"\n";
 
